@@ -36,9 +36,9 @@ This project aims to:
     - **Relative Strength Index** – confirm buy/sell pressure  
   - **Lag features** for historical dependency
 
-# 📊 Technical Indicator Thresholds
+## 📊 Technical Indicator Thresholds
 
-## 1️⃣ RSI (Relative Strength Index, 14)
+### 1️⃣ RSI (Relative Strength Index, 14)
 - **Range**: 0 → 100  
 - **Interpretation**: Measures momentum → how strong buying/selling pressure is.  
 
@@ -53,7 +53,7 @@ This project aims to:
 
 ---
 
-## 2️⃣ SMA 20 & SMA 50 (Simple Moving Averages)
+### 2️⃣ SMA 20 & SMA 50 (Simple Moving Averages)
 - **SMA20** → Short-term trend (≈ 1 month of trading days)  
 - **SMA50** → Medium-term trend (≈ 2.5 months of trading days)  
 
@@ -67,7 +67,7 @@ This project aims to:
 
 ---
 
-## 3️⃣ MACD (Moving Average Convergence Divergence)
+### 3️⃣ MACD (Moving Average Convergence Divergence)
 - **Components**:  
   - MACD Line = 12-day EMA – 26-day EMA  
   - Signal Line = 9-day EMA of MACD Line  
@@ -85,12 +85,13 @@ This project aims to:
 
 ---
 
-# ✅ Quick Summary
+## ✅ Quick Summary
 - **RSI > 70** → Overbought (possible fall)  
 - **RSI < 30** → Oversold (possible rise)  
 - **SMA20 > SMA50** → Bullish (Golden Cross)  
 - **SMA20 < SMA50** → Bearish (Death Cross)  
 - **MACD > Signal** → Bullish, **MACD < Signal** → Bearish  
+
 
 
 - **Modeling**
