@@ -164,7 +164,7 @@ Two models were applied for different objectives:
 ---
 
 ## Charts
-## 1.
+## 1. Stock price with SMA
   <p align="center">
         <img width="1354" height="389" alt="image" src="https://github.com/user-attachments/assets/c8a151c7-96a0-4320-8965-fedd6b781df6" 
          style="border: 2px solid black; border-radius: 8px;"/>
@@ -180,7 +180,7 @@ The chart shows **stock price movements** along with three important trend indic
 Candlesticks (red/green bars) show the actual daily price.  
 By comparing price vs SMA lines, we can understand market momentum.  
 
----
+
 
 ### 🔎 What the Analysis Tells Us  
 
@@ -196,7 +196,7 @@ By comparing price vs SMA lines, we can understand market momentum.
   - ⚠️ *Caution – Long-Term Bearish*: Over 40+ weeks, **SMA50 stayed below SMA200 ~98.5% of the time**.  
   - This is known as a **Death Cross** → signals long-term weakness and possible extended downtrend.  
 
----
+
 
 ### 🧠 What This Means for a Non-Stock Person  
 
@@ -209,14 +209,14 @@ By comparing price vs SMA lines, we can understand market momentum.
 - If you are a **long-term investor**, the signals say:  
   "The stock has been weak for months. Entering now may carry risk unless there is a clear recovery signal."  
 
----
+
 
 👉 **In simple words:**  
 The stock is showing **weakness in short, medium, and long-term views**.  
 It may not be the best time to buy aggressively. Wait for signals of recovery (e.g., SMA20 crossing back above SMA50, or SMA50 moving above SMA200).  
 
 
-## 2.
+## 2. RSI 14
 <p align="center">
 <img width="1354" height="352" alt="image" src="https://github.com/user-attachments/assets/9d9b5de4-d287-435d-bbc6-9ce5f2ad0b6e"
 </p>
@@ -233,7 +233,7 @@ In the chart:
 - The **green dashed line (30)** marks the oversold level.  
 - The purple line shows RSI values over time.  
 
----
+
 
 ### 🔎 Trading Strategy Insights  
 
@@ -252,7 +252,7 @@ In the chart:
   - The 1-year average RSI is in the **normal 30–70 range**.  
   - No strong long-term buy/sell signal → investors may wait for a clearer trend before entering.  
 
----
+
 
 ### 🧠 What This Means for a Non-Stock Person  
 
@@ -263,6 +263,8 @@ In the chart:
 👉 **In simple words:**  
 The RSI shows **weak momentum**. There’s no urgent buy or sell signal, but swing traders should be careful as the stock leans bearish.  
 
+
+---
 
 
 ## Results & Evaluation  
