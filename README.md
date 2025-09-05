@@ -318,6 +318,57 @@ In the chart:
 👉 **In simple words:**  
 The MACD shows sellers are in control. Momentum is negative, and the stock is under pressure. Best to **avoid buying** right now unless a clear bullish reversal appears.  
 
+
+## 4. Prophet
+
+<p align="center">
+<img width="1354" height="592" alt="image" src="https://github.com/user-attachments/assets/104f5f04-780b-4ba0-aae1-f9f9ee93511f"
+</p>
+  
+## Prophet Forecast with Volume Insights  
+
+The chart above shows **stock price forecasts** (blue line with confidence bands) along with **actual prices (black dots)** and **trading volume (red line)**.  
+
+### 🔎 Key Observations  
+
+1. **Trend Movements**  
+   - From **Nov 2023 to mid-2024**, the stock moved **up strongly** (clear uptrend).  
+   - From **mid-2024 to Jan 2025**, the stock entered a **downtrend** with falling prices.  
+   - Currently, prices are showing **sideways/accumulation behavior** around the 650–700 range.  
+
+2. **Volume Activity**  
+   - High spikes in **volume** indicate periods of **strong buying or selling interest**.  
+   - Recently, volume has been **rising**, but price has **not broken upward** significantly.  
+   - This suggests **accumulation** (big players buying quietly). If price breaks resistance with strong volume, it may **start a new uptrend**.  
+
+3. **Forecast & Confidence Intervals**  
+   - Prophet projects prices for the **next 30 days** (blue forecast line).  
+   - The **upper band** indicates potential bullish anomaly (if price breaks above → strong upside momentum).  
+   - The **lower band** warns of bearish anomaly (if price breaks below → strong selling pressure).  
+
+4. **Anomaly Detection**  
+   - If actual price moves **outside the forecast bounds**, it signals an **anomaly**.  
+   - 📈 *Above Upper Band* → Could mean **unexpected bullish breakout**.  
+   - 📉 *Below Lower Band* → Could mean **unexpected bearish breakdown**.  
+
+5. **Combined with Other Indicators**  
+   - If **RSI > 50** and trending up → supports bullish case.  
+   - If **SMA20 > SMA50** → confirms strength in short-term trend.  
+   - If Prophet forecast is also upward → stronger confirmation of a rally.  
+   - Conversely, weak RSI (<40) + SMA50 below SMA200 confirms continued bearish outlook.  
+
+### 🧠 What This Means for a Non-Stock Person  
+
+- The stock **went up, then down, and is now consolidating**.  
+- Volume is rising, which often means **something big may happen soon**.  
+- If the stock price **breaks above the forecast’s upper line with high volume**, it may start a **new rally (bullish)**.  
+- If it **falls below the lower line**, it signals **further downside risk**.  
+- By combining this with **RSI, SMA20/50 crossovers, and MACD**, traders can decide whether to **enter or wait**.  
+
+👉 **In simple words:**  
+This chart shows that the stock is at a **decision point**. High volume means pressure is building. If it breaks out above resistance, it could go up strongly. If it fails, it may go down more.  
+
+
 ---
 
 
