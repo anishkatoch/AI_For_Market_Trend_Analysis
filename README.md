@@ -164,10 +164,11 @@ Two models were applied for different objectives:
 ---
 
 ## Charts
-<p align="center">
-      <img width="1354" height="389" alt="image" src="https://github.com/user-attachments/assets/c8a151c7-96a0-4320-8965-fedd6b781df6" 
-       style="border: 2px solid black; border-radius: 8px;"/>
-</p>
+## 1.
+  <p align="center">
+        <img width="1354" height="389" alt="image" src="https://github.com/user-attachments/assets/c8a151c7-96a0-4320-8965-fedd6b781df6" 
+         style="border: 2px solid black; border-radius: 8px;"/>
+  </p>
 
 ## Understanding the SMA (Simple Moving Average) Analysis  
 
@@ -214,7 +215,54 @@ By comparing price vs SMA lines, we can understand market momentum.
 The stock is showing **weakness in short, medium, and long-term views**.  
 It may not be the best time to buy aggressively. Wait for signals of recovery (e.g., SMA20 crossing back above SMA50, or SMA50 moving above SMA200).  
 
---
+
+## 2.
+<p align="center">
+<img width="1354" height="352" alt="image" src="https://github.com/user-attachments/assets/9d9b5de4-d287-435d-bbc6-9ce5f2ad0b6e"
+</p>
+  
+## Understanding RSI (Relative Strength Index)  
+
+The RSI (14) chart shows momentum in the stock:  
+- **Above 70** → Overbought (stock may be too expensive, risk of pullback)  
+- **Below 30** → Oversold (stock may be too cheap, possible rebound)  
+- **Between 30–70** → Neutral zone (no strong buying/selling pressure)  
+
+In the chart:  
+- The **red dashed line (70)** marks the overbought level.  
+- The **green dashed line (30)** marks the oversold level.  
+- The purple line shows RSI values over time.  
+
+---
+
+### 🔎 Trading Strategy Insights  
+
+- **Short-Term Trading (5-6 weeks):**  
+  - 🔵 *Neutral (RSI = 48.09)*  
+  - The 4-week RSI average (43.84) suggests no strong buying or selling pressure.  
+  - Traders should watch for moves closer to **30 (buy signal)** or **70 (sell signal)**.  
+
+- **Swing Trading (~6 months):**  
+  - 🟠 *Bearish Momentum (RSI = 39.85)*  
+  - Average RSI over 2 weeks indicates selling pressure dominates.  
+  - Swing traders should be cautious; market momentum is weak.  
+
+- **Long-Term Investing (1+ year):**  
+  - ⚖️ *Neutral Long-Term (RSI = 43.41)*  
+  - The 1-year average RSI is in the **normal 30–70 range**.  
+  - No strong long-term buy/sell signal → investors may wait for a clearer trend before entering.  
+
+---
+
+### 🧠 What This Means for a Non-Stock Person  
+
+- **Short-term:** Market is currently stable, no strong buy/sell signals.  
+- **Medium-term (swing trading):** Momentum is bearish → better to be cautious.  
+- **Long-term investing:** The stock is neither overbought nor oversold. Investors should wait before making big moves.  
+
+👉 **In simple words:**  
+The RSI shows **weak momentum**. There’s no urgent buy or sell signal, but swing traders should be careful as the stock leans bearish.  
+
 
 
 ## Results & Evaluation  
