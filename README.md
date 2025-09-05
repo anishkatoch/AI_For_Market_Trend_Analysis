@@ -264,6 +264,60 @@ In the chart:
 The RSI shows **weak momentum**. There’s no urgent buy or sell signal, but swing traders should be careful as the stock leans bearish.  
 
 
+## 3. MACD
+
+
+<p align="center">
+  <img width="1354" height="365" alt="image" src="https://github.com/user-attachments/assets/04dc649d-e8be-4a44-8c5d-c4585ccaa975"
+
+</p>
+
+## Understanding MACD (Moving Average Convergence Divergence)  
+
+The MACD helps measure **momentum** and shows when a stock might be shifting between **bullish (uptrend)** and **bearish (downtrend)** phases.  
+
+In the chart:  
+- **Blue Line = MACD Line**  
+- **Orange Line = Signal Line**  
+- **Gray Bars = Histogram (difference between MACD & Signal)**  
+
+📌 Key rules:  
+- If **MACD > Signal Line** → Bullish momentum (buyers stronger)  
+- If **MACD < Signal Line** → Bearish momentum (sellers stronger)  
+- If **MACD > 0** → Positive momentum  
+- If **MACD < 0** → Negative momentum  
+
+
+
+### 🔎 Trading Strategy Insights  
+
+- 📉 **Bearish Bias:**  
+  - In the past 20 trading days, the MACD line stayed **below the Signal Line ~65%** of the time.  
+  - This means sellers have dominated, showing **consistent downward pressure**.  
+
+- 🟠 **MACD Trending Downward:**  
+  - The MACD line has dropped compared to 20 days ago.  
+  - This suggests momentum is **fading**, with sellers slowly gaining control.  
+
+- ⬇️ **Negative Histogram:**  
+  - On average, the histogram stayed **below zero** during this period.  
+  - This highlights that bearish momentum has been **heavier and persistent**.  
+
+- ⚠️ **MACD Below Zero:**  
+  - The MACD line is currently **below zero**, confirming that the stock is trading with **bearish momentum overall**.  
+  - This often happens during **sustained downtrends**.  
+
+
+### 🧠 What This Means for a Non-Stock Person  
+
+- The stock is showing **strong selling pressure**.  
+- Short-term and medium-term momentum are bearish.  
+- It’s **not an ideal time to buy** unless there is a reversal signal (MACD crossing back above Signal).  
+- Traders should be cautious, as momentum suggests the stock may continue downward.  
+
+👉 **In simple words:**  
+The MACD shows sellers are in control. Momentum is negative, and the stock is under pressure. Best to **avoid buying** right now unless a clear bullish reversal appears.  
+
 ---
 
 
