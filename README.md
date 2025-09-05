@@ -41,6 +41,8 @@ This project aims to:
     - **Relative Strength Index** – confirm buy/sell pressure  
   - **Lag features** for historical dependency
 
+---
+
 ## 📊 Technical Indicator Thresholds
 
 ### 1️⃣ RSI (Relative Strength Index, 14)
@@ -160,6 +162,8 @@ Two models were applied for different objectives:
   - Mean Absolute Error (**MAE**): `23.22`  
 - **Visualization:** Charts included trend with **upper and lower bounds** to evaluate accumulation zones.  
   Volume overlays were added to check if the stock is under **accumulation or distribution** phases.  
+
+---
 
 ## Results & Evaluation  
 
