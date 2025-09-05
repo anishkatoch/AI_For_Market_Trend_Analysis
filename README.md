@@ -12,12 +12,17 @@ It uses **2 years of stock data (Tata Motors, NSE India)** and builds both **pre
 Stock markets are influenced by price action, momentum, volatility, and trading volume.  
 This project aims to:
 
-- Understand **past trends** using technical indicators  
+- Understand **past trends** using technical indicators such as
+  - **SMA20 & SMA50** (trend direction and crossovers)  
+  - **RSI (14)** (momentum strength, overbought/oversold levels)  
+  - **MACD & Signal Line** (bullish/bearish momentum shifts) 
 - Predict **future stock prices** with Facebook Prophet  
 - Classify **market direction** (up or down) with ML models  
 - Detect **anomalies** (sudden price/volume spikes) for risk management  
 
 ---
+
+
 
 ## 🚀 Features
 
@@ -121,9 +126,65 @@ This project aims to:
 - **Columns**:  
   - `date`, `open`, `high`, `low`, `close`, `volume`  
   - Technical features: `sma_20`, `sma_50`, `rsi_14`, `macd`, `returns`, `volatility`, `roc_5`  
-- **Source**: NSE India public data  
+- **Source**: NSE India public data
+- The raw dataset included columns such as:  
+  - `Date`  
+  - `Open`  
+  - `High`  
+  - `Low`  
+  - `Close`  
+  - `Volume`  
+  - `VWAP`  
+
+Unnecessary or redundant columns such as **Series** were ignored.  
+
+A **correlation heatmap** was also used to identify and drop unrelated or highly collinear columns, ensuring only meaningful features were kept for model training and analysis.  
 
 ---
+
+## Models Used  
+
+Two models were applied for different objectives:  
+
+### 1. Random Forest Classifier  
+- **Input:** Technical indicators and derived features  
+- **Output:** Predicts **Up (1)** or **Down (0)** trend for the next day  
+- **Training:** 80% historical data, 20% testing using time-based split  
+- **Evaluation:** Accuracy ~ **75%**, with **Precision, Recall, and F1-score** used for validation  
+
+### 2. Prophet (by Facebook)  
+- **Input:** `Date (ds)`, `Closing Price (y)`  
+- **Output:** Forecasts stock prices for the **next 30 days**  
+- **Accuracy (Evaluation Metrics):**  
+  - Root Mean Squared Error (**RMSE**): `30.12`  
+  - Mean Absolute Error (**MAE**): `23.22`  
+- **Visualization:** Charts included trend with **upper and lower bounds** to evaluate accumulation zones.  
+  Volume overlays were added to check if the stock is under **accumulation or distribution** phases.  
+
+## Results & Evaluation  
+
+- **Random Forest Classifier**  
+  - Achieved around **75% classification accuracy**  
+  - Effectively captured **SMA20, SMA50, RSI(14), MACD, and volatility** patterns  
+  - Supported decisions about **bullish, neutral, or bearish momentum**  
+
+- **Prophet (Time-Series Forecasting)**  
+  - Produced reliable **30-day forecasts**  
+  - Forecast plots displayed **upper and lower thresholds**, useful for identifying whether a stock was:  
+    - **Consolidating (accumulation phase)**  
+    - **Showing strong directional momentum**  
+  - Adding **volume overlays** to Prophet charts enhanced detection of **accumulation/distribution phases**  
+
+---
+
+## Conclusion  
+
+This project demonstrates how combining **correlation analysis**, **technical indicators**, and **machine learning** with **time-series forecasting** can provide **actionable insights** for traders and investors.  
+
+- **Random Forest** → Assists in **daily buy/sell decisions** using technical signals  
+- **Prophet** → Provides **broader forecasts** with uncertainty intervals  
+
+Together, they offer a **comprehensive toolkit** for understanding **market momentum** and improving **risk management**.  
 
 ## 🛠️ Installation & Usage
 
