@@ -22,8 +22,6 @@ This project aims to:
 
 ---
 
-
-
 ## 🚀 Features
 
 - **Data Preprocessing**
@@ -164,6 +162,60 @@ Two models were applied for different objectives:
   Volume overlays were added to check if the stock is under **accumulation or distribution** phases.  
 
 ---
+
+## Charts
+<p align="center">
+      <img width="1354" height="389" alt="image" src="https://github.com/user-attachments/assets/c8a151c7-96a0-4320-8965-fedd6b781df6" 
+       style="border: 2px solid black; border-radius: 8px;"/>
+</p>
+
+## Understanding the SMA (Simple Moving Average) Analysis  
+
+The chart shows **stock price movements** along with three important trend indicators:  
+- **SMA20 (blue line)** → Short-term trend (about 1 month)  
+- **SMA50 (orange line)** → Medium-term trend (about 2-3 months)  
+- **SMA200 (purple line)** → Long-term trend (almost a year)  
+
+Candlesticks (red/green bars) show the actual daily price.  
+By comparing price vs SMA lines, we can understand market momentum.  
+
+---
+
+### 🔎 What the Analysis Tells Us  
+
+- **Swing Trading (8-10 weeks):**  
+  - 📉 *Bearish Swing*: In the last 10 weeks, **SMA20 was below SMA50 ~66% of the time**.  
+  - This suggests weakening momentum → swing traders should be cautious or look for short (sell) opportunities.  
+
+- **Short-Term Trading (3-4 weeks):**  
+  - 📉 *Bearish Short-Term*: In the last 4 weeks, prices closed **below SMA20 ~75% of the time**.  
+  - This shows **selling pressure is strong**, meaning the short-term market trend is negative.  
+
+- **Long-Term Investing (40+ weeks):**  
+  - ⚠️ *Caution – Long-Term Bearish*: Over 40+ weeks, **SMA50 stayed below SMA200 ~98.5% of the time**.  
+  - This is known as a **Death Cross** → signals long-term weakness and possible extended downtrend.  
+
+---
+
+### 🧠 What This Means for a Non-Stock Person  
+
+- If you are a **short-term trader**, the signals say:  
+  "Market is weak right now, better to be cautious or avoid aggressive buying."  
+
+- If you are a **swing trader**, the signals say:  
+  "Momentum is bearish → better opportunities may come if prices fall further and stabilize."  
+
+- If you are a **long-term investor**, the signals say:  
+  "The stock has been weak for months. Entering now may carry risk unless there is a clear recovery signal."  
+
+---
+
+👉 **In simple words:**  
+The stock is showing **weakness in short, medium, and long-term views**.  
+It may not be the best time to buy aggressively. Wait for signals of recovery (e.g., SMA20 crossing back above SMA50, or SMA50 moving above SMA200).  
+
+--
+
 
 ## Results & Evaluation  
 
