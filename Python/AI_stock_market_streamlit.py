@@ -585,7 +585,7 @@ def main():
             return
     else:
         # Load default data from GitHub if no file is uploaded
-        default_url = r"https://raw.githubusercontent.com/anishkatoch/Time-Series-Analysis-Anomaly-Detection/main/Data/Equity-TATAMOTORS.csv"
+        default_url = r"https://raw.githubusercontent.com/anishkatoch/AI_For_Market_Trend_Analysis/main/Data/Equity-TATAMOTORS.csv"
         try:
             df = pd.read_csv(default_url)
             st.info("Showing default data for TATAMOTORS. Upload a file to see your own data.")
@@ -860,3 +860,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
