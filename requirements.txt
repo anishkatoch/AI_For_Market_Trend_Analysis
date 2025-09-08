@@ -4,3 +4,32 @@ pandas
 ta
 prophet
 scikit-learn
+# Core
+streamlit>=1.20
+numpy>=1.24
+pandas>=1.5
+python-dotenv>=0.21.0
+python-docx>=0.8.11
+
+# LangChain ecosystem
+langchain>=0.1.0
+langchain-community>=0.3.0
+langchain-openai>=0.0.4
+
+# OpenAI SDK (needed for OpenAI embeddings / Chat)
+openai>=0.27.0
+
+# Vector search backend (CPU build). If you have GPU, install faiss-gpu instead.
+faiss-cpu>=1.7.4
+
+# HuggingFace sentence embedding support (for HuggingFaceEmbeddings)
+sentence-transformers>=2.2.2
+transformers>=4.30.0
+torch>=2.0.0
+
+# ML utilities (if you use sklearn / RF etc.)
+scikit-learn>=1.2
+
+# Optional (if you work with pickles / binary IO etc.)
+typing-extensions
+
