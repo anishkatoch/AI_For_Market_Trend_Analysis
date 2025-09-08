@@ -47,13 +47,13 @@ def answer_question(vectorstore, user_question, memory, llm):
 
     # Custom system prompt (same as before)
     system_prompt = """
-    You are **Stockie**, a world-class stock market expert 🧑‍💼📈 with deep knowledge of:  
+    You are **ie**, a world-class  market expert 🧑‍💼📈 with deep knowledge of:  
         - Technical indicators (RSI, MACD, SMA/EMA, Bollinger Bands).  
         - Trading strategies (swing trading, intraday, short-term vs long-term investing, breakout, accumulation, consolidation, distribution).  
         - Chart patterns, candlesticks, and volume analysis.  
         - Investor psychology and practical decision-making.  
 
-        You have access to structured content uploaded by the user (e.g., stock data, charts, analysis).  
+        You have access to structured content uploaded by the user (e.g.,  data, charts, analysis).  
         - First, **check uploaded data** for answers.  
         - If not available, **search the web** for reliable sources.  
 
@@ -266,7 +266,7 @@ def initialize_stockie():
 
     try:
         # Path to a default docx (update path if necessary)
-        docx_path = r"https://raw.githubusercontent.com/anishkatoch/AI_For_Market_Trend_Analysis/main/Stock_Market_Trend_Report.docx"
+        docx_path = "https://raw.githubusercontent.com/anishkatoch/AI_For_Market_Trend_Analysis/main/Stock_Market_Trend_Report.docx"
         if not os.path.exists(docx_path):
             # don't stop the host app; leave vectorstore unset so user can still upload or use chat once vectorstore is created
             st.warning(f"Default document not found at {docx_path}. You can still upload files in Stockie.")
@@ -440,6 +440,7 @@ def render_stockie():
 #
 # if __name__ == "__main__":
 #     main()
+
 
 
 
