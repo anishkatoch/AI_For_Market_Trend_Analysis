@@ -4,6 +4,8 @@ pandas
 ta
 prophet
 scikit-learn
+faiss-cpu
+
 # Core
 streamlit>=1.20
 numpy>=1.24
@@ -19,8 +21,7 @@ langchain-openai>=0.0.4
 # OpenAI SDK (needed for OpenAI embeddings / Chat)
 openai>=0.27.0
 
-# Vector search backend (CPU build). If you have GPU, install faiss-gpu instead.
-faiss-cpu>=1.7.4
+
 
 # HuggingFace sentence embedding support (for HuggingFaceEmbeddings)
 sentence-transformers>=2.2.2
@@ -32,4 +33,5 @@ scikit-learn>=1.2
 
 # Optional (if you work with pickles / binary IO etc.)
 typing-extensions
+
 
