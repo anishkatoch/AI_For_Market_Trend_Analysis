@@ -268,7 +268,7 @@ def initialize_stockie():
         import requests
         # Path to a default docx (update path if necessary)
         docx_path = r"C:\Users\anees\Downloads\Stock Market\Stock_Prediction_Report.docx"
-        github_url = "https://raw.githubusercontent.com/anishkatoch/AI_For_Market_Trend_Analysis/main/Stock_Market_Trend_Report.docx"
+        github_url = "https://raw.githubusercontent.com/anishkatoch/AI_For_Market_Trend_Analysis/main/Stocks_Knowledge/Content.docx"
         file_bytes = None
         if os.path.exists(docx_path):
             with open(docx_path, "rb") as f:
@@ -358,100 +358,6 @@ def render_stockie():
         st.info(
             "Please upload a DOCX or Excel file in Stockie, or ensure the default document exists, to start chatting.")
 
-# def main():
-#     # Header
-#     st.markdown(
-#         """<div style='background: linear-gradient(45deg, #0288d1, #26c6da);
-#         padding: 2rem; border-radius: 1rem; box-shadow: 0 4px 6px rgba(0,0,0,0.1)'>
-#         <h1 style='color: white; text-align: center; margin: 0;'>Stockie: Stock Market Helper</h1>
-#         <p style='color: white; text-align: center; margin: 0.5rem 0;'>“Ask about market trends, analysis, and stock reports”</p>
-#         </div>""",
-#         unsafe_allow_html=True
-#     )
-#
-#     # Automatically process the default docx file on first run
-#     if "vectorstore" not in st.session_state:
-#         try:
-#             # --- IMPORTANT: Replace this with the actual path to your DOCX file ---
-#             docx_path = r"C:\Users\anees\Downloads\Stock Market\Stock_Prediction_Report.docx"
-#
-#             if not os.path.exists(docx_path):
-#                 st.error(f"Default document not found. Please update the path in the code: {docx_path}")
-#                 st.stop()
-#
-#             with st.spinner("⚡ Processing & embedding data..."):
-#                 with open(docx_path, "rb") as f:
-#                     # Wrap the file content in a list as expected by process_input
-#                     input_data = [("DOCX", BytesIO(f.read()))]
-#                     vectorstore = process_input(input_data, cache=True)
-#
-#             # Store in session state
-#             st.session_state["vectorstore"] = vectorstore
-#             st.session_state["memory"] = ConversationSummaryBufferMemory(
-#                 llm=ChatOpenAI(model="gpt-4", openai_api_key=openai_api_key),
-#                 memory_key="chat_history",
-#                 max_token_limit=500
-#             )
-#             st.session_state["messages"] = [
-#                 {"role": "assistant", "content": "Hello! Ask me about your products."}
-#             ]
-#             st.success("✅ Data ready! You can start chatting now.")
-#             # Rerun to update the UI state
-#             st.rerun()
-#
-#         except Exception as e:
-#             st.error(f"Error processing input: {e}")
-#
-#     # Chat interface
-#     if "vectorstore" in st.session_state and "memory" in st.session_state:
-#         st.markdown("### 💬 Chat with Your Data")
-#
-#         # Display messages
-#         for msg in st.session_state.messages:
-#             avatar = "🤖" if msg["role"] == "assistant" else "👤"
-#             with st.chat_message(msg["role"], avatar=avatar):
-#                 st.markdown(msg["content"])
-#
-#         # User input section
-#         st.markdown("---")
-#         uploaded_image = st.file_uploader("Attach an image (optional)", type=["png", "jpg", "jpeg"])
-#
-#         if prompt := st.chat_input("Ask a question about the document or the uploaded image..."):
-#             st.session_state.messages.append({"role": "user", "content": prompt})
-#             with st.chat_message("user"):
-#                 st.markdown(prompt)
-#
-#             try:
-#                 llm = ChatOpenAI(
-#                     model="gpt-4o-mini",
-#                     api_key=openai_api_key,
-#                     temperature=0.2,
-#                     max_tokens=1024
-#                 )
-#
-#                 # Decide which function to call based on whether an image was uploaded
-#                 if uploaded_image is not None:
-#                     image_bytes = uploaded_image.getvalue()
-#                     with st.spinner("Analyzing the image..."):
-#                         response = answer_question_with_image(prompt, image_bytes, llm)
-#                 else:
-#                     # Fallback to the text-based RAG for questions about the document
-#                     with st.spinner("Searching the document..."):
-#                         response = answer_question(
-#                             st.session_state["vectorstore"],
-#                             prompt,
-#                             st.session_state["memory"],
-#                             llm
-#                         )
-#
-#                 st.session_state.messages.append({"role": "assistant", "content": response})
-#                 with st.chat_message("assistant"):
-#                     st.markdown(response)
-#             except Exception as e:
-#                 st.error(f"Error generating response: {e}")
-#
-#
-# if __name__ == "__main__":
-#     main()
+
 
 
