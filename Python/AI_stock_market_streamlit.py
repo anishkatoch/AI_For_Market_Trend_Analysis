@@ -50,7 +50,7 @@ def show_hero_section():
     st.markdown("""
         <div class="hero">
             <h1>📈 AI Stock Market Predictor</h1>
-            <p>Upload your stock data (Excel or CSV) and get insights into trends, 
+            <p>Upload your NSE stock data (Excel or CSV) and get insights into trends, 
             next-day percentage movement, and AI-based future forecasts.</p>
             <p><b>⚠️ Disclaimer:</b> This tool is for <b>educational purposes only</b>. 
             It does not provide financial advice. Invest at your own risk.</p>
@@ -860,4 +860,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
