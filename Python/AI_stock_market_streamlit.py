@@ -7,7 +7,8 @@ from prophet.plot import plot_plotly
 import plotly.graph_objs as go
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import GridSearchCV, TimeSeriesSplit, train_test_split
-
+from stockie import render_stockie
+import warnings
 
 # ===================== CSS Styling =====================
 def add_custom_css():
@@ -584,7 +585,7 @@ def main():
             return
     else:
         # Load default data from GitHub if no file is uploaded
-        default_url = r'https://raw.githubusercontent.com/anishkatoch/Time-Series-Analysis-Anomaly-Detection/main/Data/Equity-TATAMOTORS.csv'
+        default_url = r"C:\Users\anees\Downloads\Stock Market\Equity-TATAMOTORS.csv"
         try:
             df = pd.read_csv(default_url)
             st.info("Showing default data for TATAMOTORS. Upload a file to see your own data.")
@@ -721,6 +722,140 @@ def main():
 
             **MAE% ≈ {mae_pct:.1f}%** → More intuitive: predictions are ~{mae_pct:.1f}% off on average.
             """)
+    # --- Floating Stockie button (bottom-right) ---
+            st.markdown(
+                    """
+                    <style>
+                        .stockie-btn {
+                            position: fixed;
+                            right: 24px;
+                            bottom: 24px;
+                            z-index: 9999;
+                            border-radius: 50px;
+                            padding: 14px 18px;
+                            background: linear-gradient(90deg,#0ea5e9,#2563eb);
+                            color: white;
+                            font-weight: 700;
+                            box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+                            border: none;
+                            cursor: pointer;
+                            font-size: 1.2rem;
+                            transition: box-shadow 0.2s;
+                        }
+                        .stockie-btn:active { transform: translateY(1px); }
+                        .stockie-panel {
+                            position: fixed;
+                            right: 32px;
+                            bottom: 90px;
+                            z-index: 10000;
+                            width: 350px;
+                            max-height: 75vh;
+                            background: #fff;
+                            border-radius: 18px;
+                            box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+                            overflow: hidden;
+                            display: flex;
+                            flex-direction: column;
+                            border: 1.5px solid #e0e7ef;
+                            animation: stockie-fadein 0.25s;
+                        }
+                        @keyframes stockie-fadein {
+                            from { opacity: 0; transform: translateY(30px); }
+                            to { opacity: 1; transform: translateY(0); }
+                        }
+                        .stockie-header {
+                            background: #f8fafc;
+                            color: #222;
+                            padding: 14px 18px 10px 18px;
+                            font-size: 1.1rem;
+                            font-weight: 600;
+                            border-radius: 18px 18px 0 0;
+                            display: flex;
+                            align-items: center;
+                            justify-content: space-between;
+                            border-bottom: 1px solid #e0e7ef;
+                        }
+                        .stockie-header-left {
+                            display: flex;
+                            align-items: center;
+                            gap: 10px;
+                        }
+                        .stockie-avatar {
+                            width: 36px;
+                            height: 36px;
+                            border-radius: 50%;
+                            background: linear-gradient(135deg,#0ea5e9,#2563eb);
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            font-size: 1.3rem;
+                            color: #fff;
+                            font-weight: 700;
+                            margin-right: 4px;
+                        }
+                        .stockie-status {
+                            font-size: 0.95rem;
+                            color: #22c55e;
+                            margin-left: 2px;
+                            font-weight: 500;
+                            display: flex;
+                            align-items: center;
+                        }
+                        .stockie-status-dot {
+                            width: 8px;
+                            height: 8px;
+                            background: #22c55e;
+                            border-radius: 50%;
+                            display: inline-block;
+                            margin-right: 5px;
+                        }
+                        .stockie-close {
+                            background: none;
+                            border: none;
+                            color: #888;
+                            font-size: 1.3rem;
+                            font-weight: 700;
+                            cursor: pointer;
+                            margin-left: 8px;
+                            transition: color 0.2s;
+                        }
+                        .stockie-close:hover { color: #f87171; }
+                    </style>
+
+                    <form action="?" method="get">
+                        <input type="hidden" name="show_stockie" value="1" />
+                        <button class="stockie-btn" type="submit">💬</button>
+                    </form>
+                    """,
+                    unsafe_allow_html=True,
+            )
+
+    # Check query params to show/hide panel
+    # params = st.experimental_get_query_params()
+    params = st.query_params
+    # st.write(params)
+    if params.get("show_stockie") == "1":
+            st.markdown(
+                    """
+                    <div class="stockie-panel">
+                        <div class="stockie-header">
+                            <div class="stockie-header-left">
+                                <div class="stockie-avatar">S</div>
+                                <div>
+                                    <div style="font-weight:600; color:#222;">Stockie</div>
+                                    <div class="stockie-status"><span class="stockie-status-dot"></span>Online</div>
+                                </div>
+                            </div>
+                            <form action="?" method="get" style="margin:0;">
+                                <button name="close_stockie" value="1" class="stockie-close" title="Close">✖</button>
+                            </form>
+                        </div>
+                    """,
+                    unsafe_allow_html=True,
+            )
+            with st.container():
+                    render_stockie()
+            st.markdown("</div>", unsafe_allow_html=True)
 
 
 if __name__ == "__main__":
