@@ -21,8 +21,6 @@ langchain-openai>=0.0.4
 # OpenAI SDK (needed for OpenAI embeddings / Chat)
 openai>=0.27.0
 
-
-
 # HuggingFace sentence embedding support (for HuggingFaceEmbeddings)
 sentence-transformers>=2.2.2
 transformers>=4.30.0
@@ -33,5 +31,6 @@ scikit-learn>=1.2
 
 # Optional (if you work with pickles / binary IO etc.)
 typing-extensions
+
 
 
