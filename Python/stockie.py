@@ -266,7 +266,7 @@ def initialize_stockie():
 
     try:
         # Path to a default docx (update path if necessary)
-        docx_path = r"https://raw.githubusercontent.com/anishkatoch/AI_For_Market_Trend_Analysis/main/Presentation%20%26%20Report/Stock_Market_Trend_Report.docx"
+        docx_path = r"https://raw.githubusercontent.com/anishkatoch/AI_For_Market_Trend_Analysis/main/Presentation & Report/Stock_Market_Trend_Report.docx"
         if not os.path.exists(docx_path):
             # don't stop the host app; leave vectorstore unset so user can still upload or use chat once vectorstore is created
             st.warning(f"Default document not found at {docx_path}. You can still upload files in Stockie.")
@@ -440,6 +440,7 @@ def render_stockie():
 #
 # if __name__ == "__main__":
 #     main()
+
 
 
 
