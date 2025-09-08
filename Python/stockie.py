@@ -47,13 +47,13 @@ def answer_question(vectorstore, user_question, memory, llm):
 
     # Custom system prompt (same as before)
     system_prompt = """
-    You are **ie**, a world-class  market expert 🧑‍💼📈 with deep knowledge of:  
+    You are **Stockie**, a world-class stock market expert 🧑‍💼📈 with deep knowledge of:  
         - Technical indicators (RSI, MACD, SMA/EMA, Bollinger Bands).  
         - Trading strategies (swing trading, intraday, short-term vs long-term investing, breakout, accumulation, consolidation, distribution).  
         - Chart patterns, candlesticks, and volume analysis.  
         - Investor psychology and practical decision-making.  
 
-        You have access to structured content uploaded by the user (e.g.,  data, charts, analysis).  
+        You have access to structured content uploaded by the user (e.g., stock data, charts, analysis).  
         - First, **check uploaded data** for answers.  
         - If not available, **search the web** for reliable sources.  
 
@@ -265,17 +265,30 @@ def initialize_stockie():
         return
 
     try:
+        import requests
         # Path to a default docx (update path if necessary)
-        docx_path = "https://raw.githubusercontent.com/anishkatoch/AI_For_Market_Trend_Analysis/main/Stock_Market_Trend_Report.docx"
-        if not os.path.exists(docx_path):
-            # don't stop the host app; leave vectorstore unset so user can still upload or use chat once vectorstore is created
-            st.warning(f"Default document not found at {docx_path}. You can still upload files in Stockie.")
-            return
+        docx_path = r"C:\Users\anees\Downloads\Stock Market\Stock_Prediction_Report.docx"
+        github_url = "https://raw.githubusercontent.com/anishkatoch/AI_For_Market_Trend_Analysis/main/Stock_Market_Trend_Report.docx"
+        file_bytes = None
+        if os.path.exists(docx_path):
+            with open(docx_path, "rb") as f:
+                file_bytes = f.read()
+        else:
+            try:
+                with st.spinner("Downloading default report from GitHub..."):
+                    resp = requests.get(github_url)
+                    if resp.status_code == 200:
+                        file_bytes = resp.content
+                    else:
+                        st.warning(f"Default document not found at {docx_path} or {github_url}. You can still upload files in Stockie.")
+                        return
+            except Exception as e:
+                st.warning(f"Could not download default document from GitHub: {e}. You can still upload files in Stockie.")
+                return
 
         with st.spinner("⚡ Processing & embedding data..."):
-            with open(docx_path, "rb") as f:
-                input_data = [("DOCX", BytesIO(f.read()))]
-                vectorstore = process_input(input_data, cache=True)
+            input_data = [("DOCX", BytesIO(file_bytes))]
+            vectorstore = process_input(input_data, cache=True)
 
         # create memory & messages
         st.session_state["vectorstore"] = vectorstore
@@ -285,7 +298,7 @@ def initialize_stockie():
             max_token_limit=500
         )
         st.session_state["messages"] = [
-            {"role": "assistant", "content": "Hi! What do you want me to explain or clarify about stock?"}
+            {"role": "assistant", "content": "Hello! Ask me about your stocks or uploaded report."}
         ]
     except Exception as e:
         st.error(f"Error initializing Stockie: {e}")
@@ -440,13 +453,5 @@ def render_stockie():
 #
 # if __name__ == "__main__":
 #     main()
-
-
-
-
-
-
-
-
 
 
