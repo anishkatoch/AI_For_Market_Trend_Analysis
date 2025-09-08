@@ -60,7 +60,7 @@ def show_hero_section():
 
 # ===================== FILE UPLOAD =====================
 def upload_file():
-    st.markdown("<div class='upload-box'><h3>📤 Upload your Stock Data</h3></div>", unsafe_allow_html=True)
+    st.markdown("<div class='upload-box'><h3>📤 Upload your NSE Stock Data</h3></div>", unsafe_allow_html=True)
     return st.file_uploader("", type=["csv", "xlsx"])
 
 
@@ -563,14 +563,14 @@ def main():
         </style>
         <div class="hero">
             <h1>📊 AI Stock Market Prediction</h1>
-            <p>Upload your stock data (CSV/Excel) and get AI-powered trend prediction & forecast.<br>
+            <p>Upload your NSE stock data (CSV/Excel) and get AI-powered trend prediction & forecast.<br>
             ⚠️ Disclaimer: This is for educational purposes only. Not financial advice. Use at your own risk.</p>
         </div>
         """,
         unsafe_allow_html=True,
     )
 
-    uploaded_file = st.file_uploader("📂 Upload your stock data file", type=["csv", "xlsx"])
+    uploaded_file = st.file_uploader("📂 Upload your NSE stock data file", type=["csv", "xlsx"])
 
     df = None
 
@@ -860,5 +860,6 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
 
