@@ -3,6 +3,7 @@ from plotly.subplots import make_subplots
 import pandas as pd
 import ta
 from prophet import Prophet
+from prophet.plot import plot_plotly
 import plotly.graph_objs as go
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import GridSearchCV, TimeSeriesSplit, train_test_split
@@ -63,133 +64,6 @@ def upload_file():
 
 
 # ===================== CLEANING =====================
-def clean_data(df):
-    df = df.dropna().reset_index(drop=True)
-    df.columns = df.columns.str.strip().str.lower().str.replace(" ", "_")
-    df["date"] = pd.to_datetime(df["date"])
-    df = df.sort_values("date").reset_index(drop=True)
-
-    for col in df.columns:
-        if col not in ["date", "series"]:
-            df[col] = df[col].replace(",", "", regex=True).astype(float)
-
-    return df
-
-
-# ===================== FEATURE ENGINEERING =====================
-def feature_engineering(df):
-    df["returns"] = df["close"].pct_change()
-    df["sma_10"] = df["close"].rolling(window=10).mean()
-    df["sma_30"] = df["close"].rolling(window=30).mean()
-    df["rsi"] = 100 - (100 / (1 + (df["returns"].rolling(14).mean() / df["returns"].rolling(14).std())))
-
-    df["ema12"] = df["close"].ewm(span=12, adjust=False).mean()
-    df["ema26"] = df["close"].ewm(span=26, adjust=False).mean()
-    df["macd"] = df["ema12"] - df["ema26"]
-    df["signal"] = df["macd"].ewm(span=9, adjust=False).mean()
-    return df
-
-
-# ===================== PLOT CHARTS =====================
-def plot_candlestick(df):
-    st.subheader("📉 Candlestick Chart")
-    fig = make_subplots(rows=2, cols=1, shared_xaxes=True,
-                        row_heights=[0.7, 0.3], vertical_spacing=0.1)
-
-    fig.add_trace(go.Candlestick(
-        x=df["date"], open=df["open"], high=df["high"], low=df["low"], close=df["close"],
-        name="Candlestick"), row=1, col=1)
-
-    fig.add_trace(go.Bar(
-        x=df["date"], y=df["volume"], name="Volume", marker_color="blue"), row=2, col=1)
-
-    fig.update_layout(
-        template="plotly_white", xaxis_rangeslider_visible=False,
-        title="Stock Price Movements", margin=dict(l=20, r=20, t=50, b=20),
-        height=600)
-    st.plotly_chart(fig, use_container_width=True)
-
-
-def plot_indicators(df):
-    st.subheader("📊 Technical Indicators (RSI & MACD)")
-    fig2 = make_subplots(rows=2, cols=1, shared_xaxes=True)
-
-    fig2.add_trace(go.Scatter(x=df["date"], y=df["rsi"], name="RSI", line=dict(color="purple")), row=1, col=1)
-    fig2.add_trace(go.Scatter(x=df["date"], y=df["macd"], name="MACD", line=dict(color="green")), row=2, col=1)
-    fig2.add_trace(go.Scatter(x=df["date"], y=df["signal"], name="Signal", line=dict(color="red")), row=2, col=1)
-
-    fig2.update_layout(template="plotly_white", height=600, margin=dict(l=20, r=20, t=50, b=20))
-    st.plotly_chart(fig2, use_container_width=True)
-
-
-# Plot RSI and MACD using Plotly
-def plot_rsi_chart(df: pd.DataFrame):
-    """Plot RSI 14 chart."""
-    fig = go.Figure()
-    fig.add_trace(go.Scatter(
-        x=df["date"], y=df["rsi_14"], name="RSI 14", line=dict(color="purple")
-    ))
-    fig.add_hline(y=70, line_dash="dash", line_color="red")
-    fig.add_hline(y=30, line_dash="dash", line_color="green")
-    fig.update_layout(
-        template="plotly_dark",
-        title="RSI (14)",
-        yaxis_title="RSI",
-        height=350,
-        margin=dict(l=20, r=20, t=50, b=20)
-    )
-    return fig
-
-
-def plot_macd_chart(df: pd.DataFrame):
-    """Plot MACD chart."""
-    fig = go.Figure()
-    fig.add_trace(go.Scatter(
-        x=df["date"], y=df["macd"], name="MACD", line=dict(color="blue")
-    ))
-    fig.add_trace(go.Scatter(
-        x=df["date"], y=df["macd_signal"], name="Signal", line=dict(color="orange")
-    ))
-    fig.add_trace(go.Bar(
-        x=df["date"], y=df["macd_hist"], name="Histogram", marker_color="grey", opacity=0.5
-    ))
-    fig.update_layout(
-        template="plotly_dark",
-        title="MACD (12,26,9)",
-        yaxis_title="MACD",
-        height=350,
-        margin=dict(l=20, r=20, t=50, b=20)
-    )
-    return fig
-
-
-# ===================== FORECASTING =====================
-def forecast_with_prophet(df):
-    st.subheader("🔮 Stock Forecast with Prophet")
-    forecast_period = st.slider("Select forecast period (days):", 7, 365, 90)
-
-    prophet_df = df[["date", "close"]].rename(columns={"date": "ds", "close": "y"})
-    model = Prophet()
-    model.fit(prophet_df)
-    future = model.make_future_dataframe(periods=forecast_period)
-    forecast = model.predict(future)
-
-    # Plot forecast
-    fig3 = go.Figure()
-    fig3.add_trace(go.Scatter(x=forecast["ds"], y=forecast["yhat"], name="Forecast", line=dict(color="blue")))
-    fig3.add_trace(go.Scatter(x=prophet_df["ds"], y=prophet_df["y"], name="Actual", line=dict(color="black")))
-    fig3.update_layout(template="plotly_white", title="AI Forecast", height=600, margin=dict(l=20, r=20, t=50, b=20))
-    st.plotly_chart(fig3, use_container_width=True)
-
-    # Show next-day prediction
-    next_day = forecast.iloc[-1]
-    pct_change = ((next_day["yhat"] - df["close"].iloc[-1]) / df["close"].iloc[-1]) * 100
-    if pct_change > 0:
-        st.success(f"📈 Predicted next day increase: **{pct_change:.2f}%**")
-    else:
-        st.error(f"📉 Predicted next day decrease: **{pct_change:.2f}%**")
-
-
 def preprocess_data(df: pd.DataFrame) -> pd.DataFrame:
     """Clean and preprocess stock data."""
     df = df.dropna().reset_index(drop=True)
@@ -300,6 +174,90 @@ def plot_candlestick(df: pd.DataFrame):
     return fig
 
 
+# Plot RSI and MACD using Plotly
+def plot_rsi_chart(df: pd.DataFrame):
+    """Plot RSI 14 chart."""
+    fig = go.Figure()
+    fig.add_trace(go.Scatter(
+        x=df["date"], y=df["rsi_14"], name="RSI 14", line=dict(color="purple")
+    ))
+    fig.add_hline(y=70, line_dash="dash", line_color="red")
+    fig.add_hline(y=30, line_dash="dash", line_color="green")
+    fig.update_layout(
+        template="plotly_dark",
+        title="RSI (14)",
+        yaxis_title="RSI",
+        height=350,
+        margin=dict(l=20, r=20, t=50, b=20)
+    )
+    return fig
+
+
+def plot_macd_chart(df: pd.DataFrame):
+    """Plot MACD chart."""
+    fig = go.Figure()
+    fig.add_trace(go.Scatter(
+        x=df["date"], y=df["macd"], name="MACD", line=dict(color="blue")
+    ))
+    fig.add_trace(go.Scatter(
+        x=df["date"], y=df["macd_signal"], name="Signal", line=dict(color="orange")
+    ))
+    fig.add_trace(go.Bar(
+        x=df["date"], y=df["macd_hist"], name="Histogram", marker_color="grey", opacity=0.5
+    ))
+    fig.update_layout(
+        template="plotly_dark",
+        title="MACD (12,26,9)",
+        yaxis_title="MACD",
+        height=350,
+        margin=dict(l=20, r=20, t=50, b=20)
+    )
+    return fig
+
+
+# ===================== FORECASTING =====================
+def plot_daily_forecast_with_volume(df: pd.DataFrame):
+    """Plots daily forecast with volume on a secondary axis."""
+    # Prepare data for Prophet
+    daily_df = df[['date', 'close']].rename(columns={'date': 'ds', 'close': 'y'})
+
+    # Initialize model
+    daily_model = Prophet(daily_seasonality=True)
+    daily_model.fit(daily_df)
+
+    # Make future dataframe (next 30 days)
+    daily_future = daily_model.make_future_dataframe(periods=30, freq='D')
+    daily_forecast = daily_model.predict(daily_future)
+
+    # Plot Prophet forecast using prophet's own plotting function
+    fig = plot_plotly(daily_model, daily_forecast)
+
+    # Add volume (red line) to the plot
+    volume_trace = go.Scatter(
+        x=df['date'],
+        y=df['volume'],
+        mode='lines',
+        name='Volume',
+        line=dict(color='red'),
+        yaxis='y2'  # assign volume to secondary axis
+    )
+    fig.add_trace(volume_trace)
+
+    # Add secondary y-axis for volume
+    fig.update_layout(
+        title="Daily Forecast with Volume",
+        yaxis=dict(title="Close Price"),
+        yaxis2=dict(
+            title="Volume",
+            overlaying='y',
+            side='right',
+            showgrid=False
+        ),
+        template="plotly_dark"  # Match the theme
+    )
+    return fig
+
+
 def forecast_with_prophet(df: pd.DataFrame, periods=30):
     """Forecast future prices using Prophet."""
     prophet_df = df[["date", "close"]].rename(columns={"date": "ds", "close": "y"})
@@ -313,7 +271,6 @@ def forecast_with_prophet(df: pd.DataFrame, periods=30):
     fig.add_trace(go.Scatter(x=prophet_df["ds"], y=prophet_df["y"], name="Historical"))
     fig.update_layout(template="plotly_dark", title="Forecast with Prophet")
     return fig
-
 
 
 def analyze_rsi_for_traders(df: pd.DataFrame):
@@ -395,6 +352,7 @@ def analyze_rsi_for_traders(df: pd.DataFrame):
 
     return short_term_conclusion, swing_conclusion, long_term_conclusion
 
+
 def analyze_sma_for_traders(df: pd.DataFrame):
     """Analyzes SMA for different trading styles using average conditions instead of 1-day checks."""
 
@@ -405,14 +363,14 @@ def analyze_sma_for_traders(df: pd.DataFrame):
         if bullish_ratio > 0.6:
             swing_conclusion = (
                 f"🟢 **Bullish Swing**: In the last 10 weeks, SMA20 stayed above SMA50 "
-                f"about {bullish_ratio*100:.1f}% of the time. "
+                f"about {bullish_ratio * 100:.1f}% of the time. "
                 "This means short-term momentum is stronger than the medium-term trend, "
                 "a common sign of buying interest suitable for swing traders."
             )
         elif bullish_ratio < 0.4:
             swing_conclusion = (
                 f"📉 **Bearish Swing**: In the last 10 weeks, SMA20 was below SMA50 "
-                f"about {(1-bullish_ratio)*100:.1f}% of the time. "
+                f"about {(1 - bullish_ratio) * 100:.1f}% of the time. "
                 "This shows weakening momentum, suggesting swing traders should be cautious or consider bearish setups."
             )
         else:
@@ -430,13 +388,13 @@ def analyze_sma_for_traders(df: pd.DataFrame):
         if bullish_ratio > 0.6:
             short_term_conclusion = (
                 f"🟢 **Bullish Short-Term**: In the past 4 weeks, price closed above SMA20 "
-                f"about {bullish_ratio*100:.1f}% of the time. "
+                f"about {bullish_ratio * 100:.1f}% of the time. "
                 "This shows buyers are in control in the immediate term."
             )
         elif bullish_ratio < 0.4:
             short_term_conclusion = (
                 f"📉 **Bearish Short-Term**: In the past 4 weeks, price closed below SMA20 "
-                f"about {(1-bullish_ratio)*100:.1f}% of the time. "
+                f"about {(1 - bullish_ratio) * 100:.1f}% of the time. "
                 "This indicates selling pressure is dominating short-term moves."
             )
         else:
@@ -454,13 +412,13 @@ def analyze_sma_for_traders(df: pd.DataFrame):
         if bullish_ratio > 0.6:
             long_term_conclusion = (
                 f"⭐ **Strong Long-Term Bullish**: Over the past 40 weeks, SMA50 stayed above SMA200 "
-                f"about {bullish_ratio*100:.1f}% of the time. "
+                f"about {bullish_ratio * 100:.1f}% of the time. "
                 "This is the classic 'Golden Cross' type setup, showing a strong, sustained uptrend suitable for long-term investors."
             )
         elif bullish_ratio < 0.4:
             long_term_conclusion = (
                 f"⚠️ **Caution Long-Term Bearish**: Over the past 40 weeks, SMA50 stayed below SMA200 "
-                f"about {(1-bullish_ratio)*100:.1f}% of the time. "
+                f"about {(1 - bullish_ratio) * 100:.1f}% of the time. "
                 "This is similar to a 'Death Cross', signaling weakness and possible prolonged downtrend for investors."
             )
         else:
@@ -518,13 +476,13 @@ def analyze_macd(df: pd.DataFrame, lookback: int = 20):
     if bullish_ratio > 0.6:
         conclusion.append(
             f"📈 **Bullish Bias:** In the past {lookback} trading days, the MACD line stayed above the Signal line "
-            f"on {bullish_ratio*100:.1f}% of days. This shows that momentum has mostly favored buyers, "
+            f"on {bullish_ratio * 100:.1f}% of days. This shows that momentum has mostly favored buyers, "
             "indicating sustained strength in the stock’s upward moves."
         )
     elif bullish_ratio < 0.4:
         conclusion.append(
             f"📉 **Bearish Bias:** In the past {lookback} trading days, the MACD line stayed below the Signal line "
-            f"on {(1-bullish_ratio)*100:.1f}% of days. This means sellers have dominated for most of this period, "
+            f"on {(1 - bullish_ratio) * 100:.1f}% of days. This means sellers have dominated for most of this period, "
             "suggesting consistent downward pressure."
         )
     else:
@@ -582,6 +540,7 @@ def analyze_macd(df: pd.DataFrame, lookback: int = 20):
 
     return "\n\n".join(conclusion)
 
+
 # =====================
 # Streamlit App
 # =====================
@@ -612,12 +571,28 @@ def main():
 
     uploaded_file = st.file_uploader("📂 Upload your stock data file", type=["csv", "xlsx"])
 
-    if uploaded_file is not None:
-        if uploaded_file.name.endswith(".csv"):
-            df = pd.read_csv(uploaded_file)
-        else:
-            df = pd.read_excel(uploaded_file)
+    df = None
 
+    if uploaded_file is not None:
+        try:
+            if uploaded_file.name.endswith('.csv'):
+                df = pd.read_csv(uploaded_file)
+            else:
+                df = pd.read_excel(uploaded_file)
+        except Exception as e:
+            st.error(f"Error reading uploaded file: {e}")
+            return
+    else:
+        # Load default data from GitHub if no file is uploaded
+        default_url = r'https://raw.githubusercontent.com/anishkatoch/Time-Series-Analysis-Anomaly-Detection/main/Data/Equity-TATAMOTORS.csv'
+        try:
+            df = pd.read_csv(default_url)
+            st.info("Showing default data for TATAMOTORS. Upload a file to see your own data.")
+        except Exception as e:
+            st.error(f"Failed to load default data from GitHub: {e}")
+            return
+
+    if df is not None:
         # Preprocess & features
         df = preprocess_data(df)
         df = feature_engineering(df)
@@ -665,10 +640,87 @@ def main():
             message = analyze_macd(df)
             st.info(message)
 
+        # Daily Forecast with Volume
+        st.subheader("📈 Daily Forecast with Volume")
+        with st.container(border=True):
+            st.plotly_chart(plot_daily_forecast_with_volume(df), use_container_width=True)
+
         # Prophet Forecast
         st.subheader("🔮 Forecast")
         with st.container(border=True):
             st.plotly_chart(forecast_with_prophet(df, periods=30), use_container_width=True)
+
+        # Model Performance Metrics
+        st.subheader("📊 Model Performance Metrics")
+        with st.container(border=True):
+            # Re-create prophet dataframes to calculate metrics
+            daily_df = df[['date', 'close']].rename(columns={'date': 'ds', 'close': 'y'})
+            daily_model = Prophet(daily_seasonality=True)
+            daily_model.fit(daily_df)
+            daily_future = daily_model.make_future_dataframe(periods=30, freq='D')
+            daily_forecast = daily_model.predict(daily_future)
+
+            comparisons = daily_forecast.merge(daily_df, on='ds', how='left')
+            comparisons.rename(columns={'y': 'actual_close'}, inplace=True)
+
+            st.write("Forecast vs Actuals (historical data):")
+
+            # Dynamic period selection
+            period_unit = st.radio("Select period unit", ('Days', 'Weeks', 'Months'), horizontal=True)
+            if period_unit == 'Days':
+                period_value = st.number_input("Enter number of days", min_value=1, value=5)
+                delta = pd.Timedelta(days=period_value)
+            elif period_unit == 'Weeks':
+                period_value = st.number_input("Enter number of weeks", min_value=1, value=2)
+                delta = pd.Timedelta(weeks=period_value)
+            else:  # Months
+                period_value = st.number_input("Enter number of months", min_value=1, value=1)
+                delta = pd.DateOffset(months=period_value)
+
+            # Filter data for display
+            historical_comparisons = comparisons.copy()
+            end_date = historical_comparisons['ds'].max()
+            start_date = end_date - delta
+
+
+
+            display_df = historical_comparisons[historical_comparisons['ds'] >= start_date]
+            st.dataframe(
+                display_df[['ds', 'actual_close', 'yhat']].rename(columns={'yhat': 'prediction_close'})
+            )
+            # st.dataframe(display_df[['ds', 'actual_close', 'yhat']])
+
+            comparison = comparisons.copy()
+            comparison = comparison.dropna().reset_index(drop=True)
+
+            # Actual and predicted values
+            y_true = comparison['actual_close']
+            y_pred = comparison['yhat']
+
+            # Calculate RMSE and MAE
+            from sklearn.metrics import mean_squared_error, mean_absolute_error
+            import numpy as np
+
+            mse = mean_squared_error(y_true, y_pred)
+            rmse = np.sqrt(mse)
+            mae = mean_absolute_error(y_true, y_pred)
+
+            # Calculate percentage errors
+            rmse_pct = (rmse / y_true.mean()) * 100
+            mae_pct = (mae / y_true.mean()) * 100
+
+            # st.markdown("---")
+        st.markdown("#### Interpretation:")
+        with st.container(border=True):
+            st.info(f"""
+            **RMSE = {rmse:.2f}** → On average, your predictions are about ₹{rmse:.2f} away from actual prices.
+
+            **MAE = {mae:.2f}** → On average, error is ₹{mae:.2f} per prediction.
+
+            **RMSE% ≈ {rmse_pct:.1f}%** → Model’s average prediction error is ~{rmse_pct:.1f}% of stock price.
+
+            **MAE% ≈ {mae_pct:.1f}%** → More intuitive: predictions are ~{mae_pct:.1f}% off on average.
+            """)
 
 
 if __name__ == "__main__":
