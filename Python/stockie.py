@@ -6,7 +6,7 @@ from docx import Document
 import numpy as np
 import pandas as pd
 import os
-from langchain_core.prompts import PromptTemplate
+from langchain.prompts import PromptTemplate
 from langchain.chains import LLMChain
 from langchain.chains.question_answering import load_qa_chain
 from langchain.chains import RetrievalQA
@@ -357,6 +357,7 @@ def render_stockie():
     else:
         st.info(
             "Please upload a DOCX or Excel file in Stockie, or ensure the default document exists, to start chatting.")
+
 
 
 
