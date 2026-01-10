@@ -5,6 +5,7 @@ ta
 prophet
 scikit-learn
 faiss-cpu
+tiktoken
 
 # Core
 streamlit>=1.20
@@ -31,6 +32,7 @@ scikit-learn>=1.2
 
 # Optional (if you work with pickles / binary IO etc.)
 typing-extensions
+
 
 
 
